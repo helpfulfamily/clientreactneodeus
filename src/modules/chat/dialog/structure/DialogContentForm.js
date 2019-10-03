@@ -1,14 +1,74 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react'
+import {getToken} from "../../../user/process/LoginProcess";
+import {useSelector} from "react-redux";
+import logger from "../../../../tool/log";
+import {publishDialogContentOut} from "../door/PublishDialogContentDoor";
 
 const DialogContentForm = (props) => {
+    const [dialogContent, setDialogContent] = useState("")
+    const userInformation = useSelector(state => state.userInformation);
+
+    const handleInputChange = event => {
+        const {value} = event.target;
+        setDialogContent({value});
+    }
+    const handleKeypress = event => {
+
+        if(event.key === 'Enter'){
+          handleSubmitProcess(event);
+        }
+    }
+    function handleSubmitProcess(event) {
+
+        if(typeof event!="undefined"){
+            event.preventDefault();
+        }
+
+
+        getToken(userInformation.sso.keycloak)
+            .then( (token) => startPublishProcess(token))
+            .catch(function(hata){
+
+                logger.error(hata)
+            });
+
+
+
+
+    }
+    const startPublishProcess = (token) =>
+    {
+
+        var content = {
+            "name": "",
+            "text": dialogContent.value,
+            "receiver": {
+                "username": decodeURIComponent("adminha")
+            }
+        };
+
+
+
+         publishDialogContentOut(content, token);
+    };
+
+
+
+
 
     return (
         <div className="container">
             <div className="col-md-12">
                 <div className="bottom">
                     <form className="text-area">
-                                              <textarea className="form-control" placeholder="Start typing for reply..."
-                                                        rows="1"></textarea>
+                          <textarea className="form-control"
+                                    placeholder="Start typing for reply..."
+                                      rows="1"
+                                    onChange={handleInputChange}
+                                    onKeyPress={handleKeypress}
+                          >
+
+                          </textarea>
                         <div className="add-smiles">
                             <span title="add icon" className="em em-blush"></span>
                         </div>
@@ -35,7 +95,7 @@ const DialogContentForm = (props) => {
                             <i className="em em-rose"></i>
                         </div>
                         <button type="submit" className="btn send"><i
-                            className="ti-location-arrow"></i></button>
+                            className="ti-location-arrow"  onClick={handleSubmitProcess}></i></button>
                     </form>
                     <label>
                         <input type="file"/>

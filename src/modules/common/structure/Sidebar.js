@@ -516,33 +516,33 @@ const Sidebar = (props) => {
                                                                 name <span>*</span></label>
                                                             <input type="text" className="form-control"
                                                                    id="firstName" placeholder="First name"
-                                                                   value="Bob" required/>
+                                                                   defaultValue="Bob" required/>
                                                         </div>
                                                         <div className="field">
                                                             <label htmlFor="lastName">Last
                                                                 name <span>*</span></label>
                                                             <input type="text" className="form-control"
                                                                    id="lastName" placeholder="Last name"
-                                                                   value="Frank" required/>
+                                                                   defaultValue="Frank" required/>
                                                         </div>
                                                     </div>
                                                     <div className="field">
                                                         <label htmlFor="email">Email <span>*</span></label>
                                                         <input type="email" className="form-control" id="email"
                                                                placeholder="Enter your email address"
-                                                               value="bobfrank@gmail.com" required/>
+                                                               defaultValue="bobfrank@gmail.com" required/>
                                                     </div>
                                                     <div className="field">
                                                         <label htmlFor="password">Password</label>
                                                         <input type="password" className="form-control"
                                                                id="password" placeholder="Enter a new password"
-                                                               value="password" required/>
+                                                               defaultValue="password" required/>
                                                     </div>
                                                     <div className="field">
                                                         <label htmlFor="location">Location</label>
                                                         <input type="text" className="form-control" id="location"
                                                                placeholder="Enter your location"
-                                                               value="New York, USA" required/>
+                                                               defaultValue="New York, USA" required/>
                                                     </div>
                                                     <button className="btn btn-link w-100">Delete Account</button>
                                                     <button type="submit" className="btn button w-100">Apply
