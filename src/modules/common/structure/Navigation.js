@@ -1,8 +1,9 @@
-import React, { useEffect} from 'react';
-import {login, getLoginUser} from "../../user/process/LoginProcess";
+import React, {useEffect} from 'react';
+import {getLoginUser, login} from "../../user/process/LoginProcess";
 import {getUserInformationOut} from "../../user/door/GetUserInformationDoor";
 
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {connectWebSocket} from "../../../tool/websocket/action/WebSocketHook";
 
 
 const handleLogin = e => {
@@ -17,18 +18,14 @@ const handleLogin = e => {
 const Navigation = (props) => {
     const dispatch = useDispatch();
     const userInformation = useSelector(state => state.userInformation);
-
     function LoginPromiseResolved(userInformation){
 
 
         dispatch(getUserInformationOut(userInformation));
-
-        // WebSocket'e de bu noktada bağlanıyor.
-        //  connectWebSocket(loginUser.sso.username);
+        dispatch(connectWebSocket(userInformation.sso.username));
 
     }
     useEffect(() => {
-
             getLoginUser().then((loginUser) =>
                 LoginPromiseResolved(loginUser))
                 .catch(function (hata) {

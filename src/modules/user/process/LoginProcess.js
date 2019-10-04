@@ -1,5 +1,6 @@
 import * as Keycloak from "keycloak-js";
 
+
 const keycloak = Keycloak('/keycloak.json');
 
 export  function getLoginUser() {

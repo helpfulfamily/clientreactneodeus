@@ -35,7 +35,8 @@ export function publishDialogContentOut(content, token)  {
 
 }
 
-export function publishDialogContentIn(data, store) {
+export function publishDialogContentIn(data) {
+    return (dispatch) => {
     data= JSON.parse(data.body);
 
     var log = {
@@ -43,7 +44,6 @@ export function publishDialogContentIn(data, store) {
         , information: "publishDialogContentIn(data, store)"
 
         , "data": data
-        , "store": store
     };
     logger.debug(log);
 
@@ -55,12 +55,12 @@ export function publishDialogContentIn(data, store) {
         if(typeof payload !="undefined"){
 
             var action = publishDialogContentAction(payload);
-            store.dispatch(action);
+            dispatch(action);
 
 
         }
 
     }
-
+    }
 
 }

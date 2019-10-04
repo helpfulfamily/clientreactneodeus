@@ -12,7 +12,7 @@ const DialogContent = (props) => {
 
     return (
         <div className={classNameMessage}>
-            <img className="avatar-md" src="dist/img/avatars/avatar-female-5.jpg"
+            <img className="avatar-md" src={window.location.origin+"/dist/img/avatars/avatar-female-5.jpg"}
                  data-toggle="tooltip" data-placement="top" title="Karen joye"
                  alt="avatar"/>
             <div className="text-main">

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Link} from "react-router-dom";
 
 const Sidebar = (props) => {
 
@@ -213,8 +213,10 @@ const Sidebar = (props) => {
                                     </div>
                                 </div>
                                 <div className="list-group" id="chats" role="tablist">
-                                    <a href="#list-chat" className="filterDiscussions all unread single active"
-                                       id="list-chat-list" data-toggle="list" role="tab">
+                                    <Link className="filterDiscussions all unread single active" to={{
+                                        pathname:    "/dialogcontents/adminha" ,
+
+                                    }}>
                                         <img className="avatar-md" src="dist/img/avatars/avatar-female-1.jpg"
                                              data-toggle="tooltip" data-placement="top" title="Sarah"
                                              alt="avatar"/>
@@ -228,9 +230,12 @@ const Sidebar = (props) => {
                                             <span>Mon</span>
                                             <p>A new feature has been updated...</p>
                                         </div>
-                                    </a>
-                                    <a href="#list-empty" className="filterDiscussions all unread single"
-                                       id="list-empty-list" data-toggle="list" role="tab">
+                                    </Link>
+                                    <Link className="filterDiscussions all unread single" to={{
+                                        pathname:    "/dialogcontents/algan1" ,
+
+                                    }}>
+
                                         <img className="avatar-md" src="dist/img/avatars/avatar-male-1.jpg"
                                              data-toggle="tooltip" data-placement="top" title="Michael"
                                              alt="avatar"/>
@@ -244,7 +249,7 @@ const Sidebar = (props) => {
                                             <span>Sun</span>
                                             <p>How can i improve my chances?</p>
                                         </div>
-                                    </a>
+                                    </Link>
                                     <a href="#list-chat" className="filterDiscussions all read single"
                                        id="list-chat-list2" data-toggle="list" role="tab">
                                         <img className="avatar-md" src="dist/img/avatars/avatar-female-2.jpg"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Sidebar from "../../../common/structure/Sidebar";
 import FriendRequestModal from "../../../common/structure/FriendRequestModal";
 import DialogStartNew from "./DialogStartNew";
@@ -8,9 +8,12 @@ import DialogContentForm from "./DialogContentForm";
 import DialogCall from "./DialogCall";
 import DialogContentListEmpty from "./DialogContentListEmpty";
 import Navigation from "../../../common/structure/Navigation";
+import {Route} from 'react-router-dom';
 
 
 function DialogFrame() {
+    const [receiverID, setReceiverID] = useState("");
+
     return (
 
         <main>
@@ -31,8 +34,10 @@ function DialogFrame() {
 
                             <div className="chat" id="chat1">
                                 <DialogOptions/>
-                                <DialogContentList/>
-                                <DialogContentForm/>
+
+                                    <Route  path="/dialogcontents/:receiverID" component={DialogContentList}/>
+                                    <Route  path="/dialogcontents/:receiverID" component={DialogContentForm}/>
+
                             </div>
 
                             <DialogCall/>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {getToken} from "../../../user/process/LoginProcess";
 import {useSelector} from "react-redux";
 import logger from "../../../../tool/log";
@@ -10,7 +10,7 @@ const DialogContentForm = (props) => {
 
     const handleInputChange = event => {
         const {value} = event.target;
-        setDialogContent({value});
+        setDialogContent(value);
     }
     const handleKeypress = event => {
 
@@ -41,7 +41,7 @@ const DialogContentForm = (props) => {
 
         var content = {
             "name": "",
-            "text": dialogContent.value,
+            "text": dialogContent,
             "receiver": {
                 "username": decodeURIComponent("adminha")
             }
@@ -50,6 +50,9 @@ const DialogContentForm = (props) => {
 
 
          publishDialogContentOut(content, token);
+
+         setDialogContent("");
+
     };
 
 
@@ -64,6 +67,7 @@ const DialogContentForm = (props) => {
                           <textarea className="form-control"
                                     placeholder="Start typing for reply..."
                                       rows="1"
+                                    value={dialogContent}
                                     onChange={handleInputChange}
                                     onKeyPress={handleKeypress}
                           >
