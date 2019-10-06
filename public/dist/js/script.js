@@ -121,13 +121,13 @@ jQuery(document).ready(function ($) {
 
 //-- switch dark theme
     $(".dark-theme").on("click", function () {
-        $("head").append('<link href="dist/css/dark.css" id="dark" type="text/css" rel="stylesheet">');
+        $("head").append('<link href="'+window.location.origin+'/dist/css/dark.css" id="dark" type="text/css" rel="stylesheet">');
         return false;
     });
 
     var clicked;
     clicked = !0, $(".mode").on("click", function () {
-        clicked ? ($("head").append('<link href="dist/css/dark.min.css" id="dark" type="text/css" rel="stylesheet">'), clicked = !1) : ($("#dark").remove(), clicked = !0)
+        clicked ? ($("head").append('<link href="'+window.location.origin+'/dist/css/dark.min.css" id="dark" type="text/css" rel="stylesheet">'), clicked = !1) : ($("#dark").remove(), clicked = !0)
     })
 
 

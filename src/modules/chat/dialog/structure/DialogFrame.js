@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Sidebar from "../../../common/structure/Sidebar";
-import FriendRequestModal from "../../../common/structure/FriendRequestModal";
+import FriendRequestModal from "../../../observation/FriendRequestModal";
 import DialogStartNew from "./DialogStartNew";
 import DialogOptions from "./DialogOptions";
 import DialogContentList from "./DialogContentList";
