@@ -1,39 +1,8 @@
-import React, {useEffect} from 'react';
-import {getLoginUser, login} from "../../user/process/LoginProcess";
-import {getUserInformationOut} from "../../user/door/GetUserInformationDoor";
-
-import {useDispatch, useSelector} from "react-redux";
-import {connectWebSocket} from "../../../tool/websocket/action/WebSocketHook";
-
-
-const handleLogin = e => {
-    e.preventDefault();
-
-    login();
-
-
-}
+import React from 'react';
+import AuthButton from "../../user/structure/Auth";
 
 
 const Navigation = (props) => {
-    const dispatch = useDispatch();
-    const userInformation = useSelector(state => state.userInformation);
-    function LoginPromiseResolved(userInformation){
-
-
-        dispatch(getUserInformationOut(userInformation));
-        dispatch(connectWebSocket(userInformation.sso.username));
-
-    }
-    useEffect(() => {
-            getLoginUser().then((loginUser) =>
-                LoginPromiseResolved(loginUser))
-                .catch(function (hata) {
-                    console.log("hata");
-                });
-
-
-    }, []);
 
 
     return (
@@ -64,7 +33,7 @@ const Navigation = (props) => {
                         <a href="sign-in.html" className="btn power" title="Sign Out"><i
                             className="ti-power-off"></i></a>
 
-                        <a href="#" onClick={handleLogin}>Login</a>
+                        <AuthButton/>
 
                     </div>
                 </div>
