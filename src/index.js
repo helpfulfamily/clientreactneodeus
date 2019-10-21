@@ -7,18 +7,19 @@ import {BrowserRouter} from "react-router-dom";
 import {FirebaseAppProvider} from 'reactfire';
 import 'firebase/performance';
 
-const config = {
-    apiKey: 'AIzaSyBg3u1sJlyJwQCE95oSDH_mtLABS-is8ZM',
-    authDomain: 'rxfire-525a3.firebaseapp.com',
-    databaseURL: 'https://rxfire-525a3.firebaseio.com',
-    projectId: 'rxfire-525a3',
-    storageBucket: 'rxfire-525a3.appspot.com',
-    messagingSenderId: '844180061847',
-    appId: '1:844180061847:web:400f7142e2d1aaeb'
+const firebaseConfig = {
+    apiKey: "AIzaSyB4I8WMEjtaiorSLBwYelykA-hgxQ1YEE4",
+    authDomain: "neodeus-41a60.firebaseapp.com",
+    databaseURL: "https://neodeus-41a60.firebaseio.com",
+    projectId: "neodeus-41a60",
+    storageBucket: "neodeus-41a60.appspot.com",
+    messagingSenderId: "627141864837",
+    appId: "1:627141864837:web:8e00681ae724910bb7a8ec",
+    measurementId: "G-DGSEBN67DY"
 };
 
 ReactDOM.render(
-    <FirebaseAppProvider firebaseConfig={config} initPerformance>
+    <FirebaseAppProvider firebaseConfig={firebaseConfig} initPerformance>
         <BrowserRouter>
             <App />
         </BrowserRouter>
