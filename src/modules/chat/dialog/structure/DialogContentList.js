@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import DialogContent from "./DialogContent";
 import 'firebase/database';
 import {SuspenseWithPerf, useDatabaseList, useFirebaseApp} from 'reactfire';
@@ -8,6 +8,41 @@ const DialogContentList = (props) => {
     const firebaseApp = useFirebaseApp();
     const ref = firebaseApp.database().ref('dialogContents');
     const dialogContents = useDatabaseList(ref);
+    const [isScrollBottom, setIsScrollBottom] = useState(false)
+    useEffect(() => {
+        toBottom();
+
+    }, []);
+    useEffect(() => {
+        if (isScrollBottom) {
+            toBottom();
+        }
+
+
+    }, [dialogContents]);
+
+    function toBottom() {
+        const messageBody = document.querySelector('#content');
+
+        messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
+    }
+
+    function listenScrollEvent() {
+
+
+        const messageBody = document.querySelector('#content');
+
+        var scrollBottonPos = messageBody.scrollHeight - messageBody.clientHeight;
+        if (messageBody.scrollTop < scrollBottonPos) {
+            setIsScrollBottom(false);
+
+        } else if (messageBody.scrollTop == scrollBottonPos) {
+            setIsScrollBottom(true);
+
+        }
+
+
+    }
 
 
     function createData(dialogContent) {
@@ -27,7 +62,7 @@ const DialogContentList = (props) => {
 
 
     return (
-        <div className="content" id="content">
+        <div className="content" id="content" onScroll={listenScrollEvent}>
             <div className="container">
 
                 <div className="col-md-12">
