@@ -1,0 +1,34 @@
+{
+  "dialogContents": {
+    "0": {
+      "createDate": "2019-09-28T19:05:38.031+0000",
+      "currentThankAmount": 0,
+      "id": 1,
+      "name": "",
+      "sender": {
+        "username": "algan41"
+      },
+      "text": "<p>text1</p>\n<p></p>\n"
+    },
+    "1": {
+      "createDate": "2019-09-28T19:05:38.031+0000",
+      "currentThankAmount": 0,
+      "id": 2,
+      "name": "",
+      "sender": {
+        "username": "algan41"
+      },
+      "text": "<p>text2</p>\n<p></p>\n"
+    },
+    "2": {
+      "createDate": "2019-09-28T19:05:38.031+0000",
+      "currentThankAmount": 0,
+      "id": 3,
+      "name": "",
+      "sender": {
+        "username": "algan41"
+      },
+      "text": "<p>text3</p>\n<p></p>\n"
+    }
+  }
+}
