@@ -1,13 +1,12 @@
 import React, {useState} from 'react'
-import {getToken} from "../../../user/process/LoginProcess";
-import {useSelector} from "react-redux";
-import logger from "../../../../tool/log";
-import {publishDialogContentOut} from "../door/PublishDialogContentDoor";
 
-const DialogContentForm = (props) => {
+import {SuspenseWithPerf, useFirebaseApp, useUser} from "reactfire";
+
+const DialogContentForm = () => {
     const [dialogContent, setDialogContent] = useState("")
-    const userInformation = useSelector(state => state.userInformation);
-
+    const [user, setUser] = useState(useUser());
+    const firebaseApp = useFirebaseApp();
+    const ref = firebaseApp.database().ref('dialogContents');
     const handleInputChange = event => {
         const {value} = event.target;
         setDialogContent(value);
@@ -23,33 +22,30 @@ const DialogContentForm = (props) => {
         if(typeof event!="undefined"){
             event.preventDefault();
         }
-
-
-        getToken(userInformation.sso.keycloak)
-            .then( (token) => startPublishProcess(token))
-            .catch(function(hata){
-
-                logger.error(hata)
-            });
-
+        startPublishProcess();
 
 
 
     }
-    const startPublishProcess = (token) =>
+
+    const startPublishProcess = () =>
     {
 
         var content = {
             "name": "",
             "text": dialogContent,
+            "sender": {"username": user.displayName},
             "receiver": {
                 "username": decodeURIComponent("adminha")
             }
         };
 
+        const newDialogContentRef = ref.push();
 
+        newDialogContentRef.set(
+            content
+        );
 
-         publishDialogContentOut(content, token);
 
          setDialogContent("");
 
@@ -112,4 +108,12 @@ const DialogContentForm = (props) => {
 
 
 };
-export default DialogContentForm;
+const SuspenseWrapper = props => {
+    return (
+        <SuspenseWithPerf fallback="loading..." traceId="RTDB-root">
+            <DialogContentForm/>
+        </SuspenseWithPerf>
+    );
+};
+
+export default SuspenseWrapper;
