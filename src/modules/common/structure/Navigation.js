@@ -1,5 +1,6 @@
 import React from 'react';
 import AuthButton from "../../user/structure/Auth";
+import {SuspenseWithPerf} from "reactfire";
 
 
 const Navigation = (props) => {
@@ -43,4 +44,12 @@ const Navigation = (props) => {
 
 
 };
-export default Navigation;
+
+const SuspenseWrapper = props => {
+    return (
+        <SuspenseWithPerf fallback="loading..." traceId="RTDB-root">
+            <Navigation/>
+        </SuspenseWithPerf>
+    );
+};
+export default SuspenseWrapper;

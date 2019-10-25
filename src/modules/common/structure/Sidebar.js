@@ -3,6 +3,7 @@ import DialogDiscussions from "../../chat/dialog/structure/DialogDiscussions";
 import Settings from "./Settings";
 import Friends from "../../observation/Friends";
 import Notifications from "./Notifications";
+import {SuspenseWithPerf} from "reactfire";
 
 const Sidebar = (props) => {
 
@@ -15,7 +16,7 @@ const Sidebar = (props) => {
 
                        <Friends/>
 
-                       <DialogDiscussions/>
+                        <DialogDiscussions buttonNav={props.buttonNav}/>
 
                        <Notifications/>
 
@@ -31,4 +32,12 @@ const Sidebar = (props) => {
 
 
 };
-export default Sidebar;
+const SuspenseWrapper = props => {
+    return (
+        <SuspenseWithPerf fallback="loading..." traceId="RTDB-root">
+            <Sidebar  {...props}/>
+        </SuspenseWithPerf>
+    );
+};
+
+export default SuspenseWrapper;

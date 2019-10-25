@@ -1,15 +1,19 @@
 import React from 'react';
+import {useUser} from "reactfire";
 
 const Settings = (props) => {
+    const user = useUser();
 
 
     return (
         <div className="tab-pane fade" id="settings">
             <div className="settings">
                 <div className="profile">
-                    <img className="avatar-xl" src="dist/img/avatars/avatar-male-1.jpg"
+                    <img className="avatar-xl"
+                         src={user ? user.photoURL : ""}
+
                          alt="avatar"/>
-                    <h1><a href="#">Bob Frank</a></h1>
+                    <h1><a href="#">{user ? user.displayName : ""}</a></h1>
                     <span>New York, USA</span>
 
                 </div>

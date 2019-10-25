@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import DialogContent from "./DialogContent";
 import 'firebase/database';
-import {SuspenseWithPerf, useDatabaseList, useFirebaseApp} from 'reactfire';
+import {SuspenseWithPerf, useDatabaseList, useFirebaseApp, useUser} from 'reactfire';
 
 const DialogContentList = (props) => {
+    const user = useUser();
+    const [contentCount, setContentCount] = useState(9)
 
-    const firebaseApp = useFirebaseApp();
-    const ref = firebaseApp.database().ref('dialogContents');
-    const dialogContents = useDatabaseList(ref);
     const [isScrollBottom, setIsScrollBottom] = useState(false)
+    const firebaseApp = useFirebaseApp();
+    const ref = firebaseApp.database().ref('dialogContents').orderByKey().limitToLast(contentCount);
+    const dialogContents = useDatabaseList(ref);
+
     useEffect(() => {
         toBottom();
 
@@ -41,7 +44,9 @@ const DialogContentList = (props) => {
 
         }
 
-
+        if (messageBody.scrollTop == 0) {
+            setContentCount(contentCount + 9);
+        }
     }
 
 
@@ -49,14 +54,14 @@ const DialogContentList = (props) => {
 
         var who = dialogContent.sender.username;
         var attachment;
-        if (who == "adminha") {
+        if (who == user.displayName) {
             who = "me";
         }
         if (typeof dialogContent.text!=="undefined" && dialogContent.text!==null && dialogContent.text.includes("pdf")) {
             attachment = "pdf";
         }
         var data = {who: who, attachment: attachment, content: dialogContent};
-        console.log(data);
+
         return data;
     }
 
