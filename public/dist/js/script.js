@@ -79,11 +79,7 @@ jQuery(document).ready(function ($) {
     });
 
 //user setting	
-    $('.setting').on('click', function () {
-        $('.navigation').toggleClass('active');
-        $('.sidebar').toggleClass('slide');
 
-    });
 //------ scrollbar plugin
     if ($.isFunction($.fn.perfectScrollbar)) {
         $('#discussions .list-group, #contacts, #alerts, #accordionSettings, .main .chat .content').perfectScrollbar();

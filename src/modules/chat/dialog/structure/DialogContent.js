@@ -2,6 +2,7 @@ import React from 'react';
 import DialogContentGroup from "./DialogContentGroup";
 
 const DialogContent = (props) => {
+
     var classNameMessage = "message ";
 
 

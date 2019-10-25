@@ -25,7 +25,6 @@ function DialogFrame() {
                 <FriendRequestModal/>
 
                 <DialogStartNew/>
-
                 <div className="main" id="chat-dialog">
                     <div className="tab-content" id="nav-tabContent">
 
@@ -35,8 +34,8 @@ function DialogFrame() {
                             <div className="chat" id="chat1">
                                 <DialogOptions/>
 
-                                    <Route  path="/dialogcontents/:receiverID" component={DialogContentList}/>
-                                    <Route  path="/dialogcontents/:receiverID" component={DialogContentForm}/>
+                                <Route path="/dialogcontents/:receiverID" component={DialogContentList}/>
+                                <Route path="/dialogcontents/:receiverID" component={DialogContentForm}/>
 
                             </div>
 
@@ -49,6 +48,7 @@ function DialogFrame() {
 
                     </div>
                 </div>
+
             </div>
 
         </main>

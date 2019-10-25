@@ -1,13 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
+import {SuspenseWithPerf, useUser} from "reactfire";
+import $ from "jquery";
 
 const DialogDiscussions = (props) => {
+    useEffect(() => {
+        $('.setting').on('click', function () {
+            $('.navigation').toggleClass('active');
+            $('.sidebar').toggleClass('slide');
 
+        });
+
+    }, []);
+    const user = useUser();
 
     return (
+
         <div id="discussions" className="tab-pane fade in active show">
+
             <figure className="setting"><img className="avatar-xl"
-                                             src="dist/img/avatars/avatar-male-1.jpg"
+                                             src={user ? user.photoURL : ""}
                                              alt="avatar"/></figure>
             <span className="logo"><img src="dist/img/logo.png" alt=""/></span>
             <div className="search">
@@ -182,4 +194,12 @@ const DialogDiscussions = (props) => {
 
 
 };
-export default DialogDiscussions;
+const SuspenseWrapper = props => {
+    return (
+        <SuspenseWithPerf fallback="loading..." traceId="RTDB-root">
+            <DialogDiscussions {...props}/>
+        </SuspenseWithPerf>
+    );
+};
+
+export default SuspenseWrapper;

@@ -4,7 +4,7 @@ import {SuspenseWithPerf, useFirebaseApp, useUser} from "reactfire";
 
 const DialogContentForm = () => {
     const [dialogContent, setDialogContent] = useState("")
-    const [user, setUser] = useState(useUser());
+    const user = useUser();
     const firebaseApp = useFirebaseApp();
     const ref = firebaseApp.database().ref('dialogContents');
     const handleInputChange = event => {
