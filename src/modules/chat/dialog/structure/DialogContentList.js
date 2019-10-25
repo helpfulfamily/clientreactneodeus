@@ -54,7 +54,7 @@ const DialogContentList = (props) => {
 
         var who = dialogContent.sender.username;
         var attachment;
-        if (who == user.displayName) {
+        if (user && who == user.displayName) {
             who = "me";
         }
         if (typeof dialogContent.text!=="undefined" && dialogContent.text!==null && dialogContent.text.includes("pdf")) {
