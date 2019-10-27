@@ -13,8 +13,8 @@ const DialogContent = (props) => {
 
     return (
         <div className={classNameMessage}>
-            <img className="avatar-md" src={window.location.origin+"/dist/img/avatars/avatar-female-5.jpg"}
-                 data-toggle="tooltip" data-placement="top" title="Karen joye"
+            <img className="avatar-md" src={props.data.content.sender.photoURL}
+                 data-toggle="tooltip" data-placement="top" title={props.data.content.sender.username}
                  alt="avatar"/>
             <div className="text-main">
                 <DialogContentGroup data={props.data}/>

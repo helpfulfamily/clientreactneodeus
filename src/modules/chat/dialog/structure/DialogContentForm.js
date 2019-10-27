@@ -34,7 +34,10 @@ const DialogContentForm = () => {
         var content = {
             "name": "",
             "text": dialogContent,
-            "sender": {"username": user.displayName},
+            "sender": {
+                "username": user.displayName,
+                "photoURL": user.photoURL
+            },
             "receiver": {
                 "username": decodeURIComponent("adminha")
             }
