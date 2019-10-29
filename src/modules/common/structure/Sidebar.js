@@ -32,7 +32,7 @@ const Sidebar = (props) => {
 
 
 };
-const SuspenseWrapper = props => {
+const SuspenseWrapperSidebar = props => {
     return (
         <SuspenseWithPerf fallback="loading..." traceId="RTDB-root">
             <Sidebar  {...props}/>
@@ -40,4 +40,4 @@ const SuspenseWrapper = props => {
     );
 };
 
-export default SuspenseWrapper;
+export default SuspenseWrapperSidebar;

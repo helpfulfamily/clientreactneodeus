@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import DialogContent from "./DialogContent";
-import 'firebase/database';
-import {SuspenseWithPerf, useDatabaseList, useFirebaseApp, useUser} from 'reactfire';
+import 'firebase/firestore';
+import {SuspenseWithPerf, useFirebaseApp, useFirestoreCollectionData, useUser} from 'reactfire';
 
 const DialogContentList = (props) => {
     const user = useUser();
@@ -9,13 +9,20 @@ const DialogContentList = (props) => {
 
     const [isScrollBottom, setIsScrollBottom] = useState(false)
     const firebaseApp = useFirebaseApp();
-    const ref = firebaseApp.database().ref('dialogContents').orderByKey().limitToLast(contentCount);
-    const dialogContents = useDatabaseList(ref);
+
+    const ref = firebaseApp.firestore().collection('dialogs')
+        .doc(user.uid)
+        .collection("dialogContents");
+    const dialogContents = useFirestoreCollectionData(ref);
+
+
 
     useEffect(() => {
         toBottom();
 
     }, []);
+
+
     useEffect(() => {
         if (isScrollBottom) {
             toBottom();
@@ -23,6 +30,7 @@ const DialogContentList = (props) => {
 
 
     }, [dialogContents]);
+
 
     function toBottom() {
         const messageBody = document.querySelector('#content');
@@ -57,10 +65,12 @@ const DialogContentList = (props) => {
         if (user && who == user.displayName) {
             who = "me";
         }
-        if (typeof dialogContent.text!=="undefined" && dialogContent.text!==null && dialogContent.text.includes("pdf")) {
+        if (typeof dialogContent.text !== "undefined" && dialogContent.text !== null && dialogContent.text.includes("pdf")) {
             attachment = "pdf";
         }
         var data = {who: who, attachment: attachment, content: dialogContent};
+
+
 
         return data;
     }
@@ -73,9 +83,12 @@ const DialogContentList = (props) => {
                 <div className="col-md-12">
 
 
-                    {dialogContents.map(({snapshot}) => (
-                        <DialogContent data={createData(snapshot.val())}/>
-                    ))}
+                    {dialogContents && dialogContents.map(dialogContent =>
+
+                        (
+                            <DialogContent data={createData(dialogContent)}/>
+                        )
+                    )}
 
                 </div>
             </div>
@@ -86,7 +99,7 @@ const DialogContentList = (props) => {
 
 };
 
-const SuspenseWrapper = props => {
+const SuspenseWrapperDialogContentList = props => {
     return (
         <SuspenseWithPerf fallback="loading..." traceId="RTDB-root">
             <DialogContentList/>
@@ -94,5 +107,5 @@ const SuspenseWrapper = props => {
     );
 };
 
-export default SuspenseWrapper;
+export default SuspenseWrapperDialogContentList;
 

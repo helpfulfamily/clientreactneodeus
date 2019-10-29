@@ -1,21 +1,41 @@
 import React from 'react';
-import DialogFrame from "./modules/chat/dialog/structure/DialogFrame";
-import {Route, Switch} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
 import {Provider} from "react-redux";
 import configureStore from './tool/store/configureStore.js';
+import {SuspenseWithPerf, useUser} from "reactfire";
+import AuthButton from "./modules/user/structure/Auth";
+import FirstInterface from "./modules/common/structure/FirstInterface";
 
 export const store = configureStore();
 
 function App() {
-  return (
+    const user = useUser();
+
+    var appContent = "";
+
+    if (!user) {
+        appContent = <AuthButton/>
+    } else {
+        appContent = <FirstInterface user={user}/>
+    }
+    return (
+
       <Provider store={store}>
         <Switch>
-          <Route  path="/" component={DialogFrame}/>
+            {appContent}
         </Switch>
       </Provider>
-
 
   );
 }
 
-export default App;
+const SuspenseWrapperApp = props => {
+    return (
+        <SuspenseWithPerf fallback="loading..." traceId="RTDB-root">
+            <App/>
+        </SuspenseWithPerf>
+    );
+};
+
+export default SuspenseWrapperApp;
+

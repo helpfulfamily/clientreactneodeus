@@ -1,6 +1,6 @@
 import React from 'react';
-import AuthButton from "../../user/structure/Auth";
 import {SuspenseWithPerf} from "reactfire";
+import AuthButton from "../../user/structure/Auth";
 
 
 const Navigation = (props) => {
@@ -31,10 +31,13 @@ const Navigation = (props) => {
                             <i className="ti-wand"></i>
                             Night Mode
                         </a>
-                        <a href="sign-in.html" className="btn power" title="Sign Out"><i
-                            className="ti-power-off"></i></a>
+
 
                         <AuthButton/>
+
+
+
+
 
                     </div>
                 </div>
@@ -45,11 +48,11 @@ const Navigation = (props) => {
 
 };
 
-const SuspenseWrapper = props => {
+const SuspenseWrapperNavigation = props => {
     return (
         <SuspenseWithPerf fallback="loading..." traceId="RTDB-root">
             <Navigation/>
         </SuspenseWithPerf>
     );
 };
-export default SuspenseWrapper;
+export default SuspenseWrapperNavigation;

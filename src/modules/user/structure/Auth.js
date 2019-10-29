@@ -15,14 +15,9 @@ const UserDetails = ({user}) => {
 
     return (
         <>
-            <h3>Displayname: {user.displayName}</h3>
-            <h3>Providers:</h3>
-            <ul>
-                {user.providerData.map(profile => (
-                    <li key={profile.providerId}>{profile.providerId}</li>
-                ))}
-            </ul>
-            <button onClick={() => signOut(firebaseApp)}>Sign Out</button>
+            <a href="sign-in.html" onClick={() => signOut(firebaseApp)} className="btn power" title="Sign Out"><i
+                className="ti-power-off"></i></a>
+
         </>
     );
 };

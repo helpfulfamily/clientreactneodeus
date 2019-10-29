@@ -1,16 +1,24 @@
 import React, {useState} from 'react'
-
+import 'firebase/firestore';
 import {SuspenseWithPerf, useFirebaseApp, useUser} from "reactfire";
 
-const DialogContentForm = () => {
+const DialogContentForm = (props) => {
+
+
     const [dialogContent, setDialogContent] = useState("")
     const user = useUser();
     const firebaseApp = useFirebaseApp();
-    const ref = firebaseApp.database().ref('dialogContents');
+    const dialogRef = firebaseApp
+        .firestore()
+        .collection('dialogs').doc(user.uid);
+    const dialogContentsRef = firebaseApp
+        .firestore()
+        .collection('dialogs').doc(user.uid).collection("dialogContents");
     const handleInputChange = event => {
         const {value} = event.target;
         setDialogContent(value);
     }
+    const receiver = props.receiver;
     const handleKeypress = event => {
 
         if(event.key === 'Enter'){
@@ -37,15 +45,13 @@ const DialogContentForm = () => {
             "sender": {
                 "username": user.displayName,
                 "photoURL": user.photoURL
-            },
-            "receiver": {
-                "username": decodeURIComponent("adminha")
             }
+            ,
+            created: firebaseApp.firestore.FieldValue.serverTimestamp()
+
         };
 
-        const newDialogContentRef = ref.push();
-
-        newDialogContentRef.set(
+        addNewContent(
             content
         );
 
@@ -53,6 +59,24 @@ const DialogContentForm = () => {
          setDialogContent("");
 
     };
+
+    const addNewContent = newContent => {
+        dialogRef.set(
+            {
+                "text": newContent.text.substring(0, 54)
+                , "participants": [user.displayName, "test"]
+                , "participant1": {"displayName": user.displayName, photoUrl: user.photoURL}
+                , "participant2": {"displayName": receiver.displayName, photoUrl: receiver.photoURL}
+
+            });
+
+        dialogContentsRef.add(
+            newContent
+        );
+
+    }
+
+
 
 
 
@@ -111,12 +135,12 @@ const DialogContentForm = () => {
 
 
 };
-const SuspenseWrapper = props => {
+const SuspenseWrapperDialogContentForm = props => {
     return (
         <SuspenseWithPerf fallback="loading..." traceId="RTDB-root">
-            <DialogContentForm/>
+            <DialogContentForm {...props}/>
         </SuspenseWithPerf>
     );
 };
 
-export default SuspenseWrapper;
+export default SuspenseWrapperDialogContentForm;
